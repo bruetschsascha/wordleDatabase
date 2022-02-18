@@ -58,10 +58,8 @@ $mydatabase = 'dictionary';
 $conn = new mysqli($host, $user, $pass, $mydatabase);
 
 
-//build part of the query with green letters
+//build query with green letters
 $greenLettersQueryArray = [];
-
-
 for($i = 0; $i < 5; $i++) {
     if(empty($greenLettersArray[$i])) {
         $greenLettersQueryArray[$i] = "_";
@@ -104,9 +102,12 @@ if ($result = $conn->query($sql)) {
     while ($data = $result->fetch_object()) {
         $words[] = $data;
     }
-    foreach ($words as $word) {
-        echo "<br>";
-        echo $word->word;
+    if(!empty($words)) {
+        foreach ($words as $word) {
+            echo "<br>";
+            echo $word->word;
+        }
     }
+    else{echo "Ich kann leider kein Wort finden 🙂";}
 }
 ?>
