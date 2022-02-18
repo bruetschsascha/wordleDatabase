@@ -53,7 +53,6 @@ $conn = new mysqli($host, $user, $pass, $mydatabase);
 
 //build part of the query with green letters
 $greenLettersArray = array($greenLetter1, $greenLetter2, $greenLetter3, $greenLetter4, $greenLetter5);
-var_dump($greenLettersArray);
 $greenLettersQuery = 'AND word LIKE "';
 
 for($i = 0; $i < 5; $i++) {
