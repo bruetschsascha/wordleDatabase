@@ -1,10 +1,17 @@
 <?php
 //get letters from the textboxes
-
+$resetArray = array("","","","","");
 $yellowLetters = (isset($_GET['yellowLetters']))? $_GET['yellowLetters']:0;
 $grayLetters = (isset($_GET['grayLetters']))? $_GET['grayLetters']:0;
 $greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:"", 1 => (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:"", 2 => (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:"", 3 => (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:"", 4 =>(isset($_GET['greenLetter5']))? $_GET['greenLetter5']:"");
 
+if(isset($_GET['reset'])) {
+    $yellowLetters = "";
+    $grayLetters = "";
+    for($i = 0; $i <5; $i++){
+        $greenLettersArray[$i] = "";
+    }
+}
 ?>
 <form action="index.php" method="GET">
     <input type="text" name="yellowLetters" value = "<?if(empty($yellowLetters)){echo"";} else {echo $yellowLetters;} ?>">
@@ -15,6 +22,7 @@ $greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLett
     <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[3])){echo"";} else {echo $greenLettersArray[3];} ?>">
     <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[4])){echo"";} else {echo $greenLettersArray[4];} ?>">
     <input type="submit">
+    <input type="submit" name="reset" value="Reset" />
 </form>
 <style>
     input[name="yellowLetters"]{
@@ -41,6 +49,7 @@ $greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLett
 </style>
 
 <?php
+
 //connect to database
 $host = 'mariadb';
 $user = 'root';
