@@ -1,13 +1,25 @@
+<?php
+//get letters from the textboxes
+$yellowLetters = (isset($_GET['yellowLetters']))? $_GET['yellowLetters']:0;
+$grayLetters = (isset($_GET['grayLetters']))? $_GET['grayLetters']:0;
+$greenLetter1 = (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:0;
+$greenLetter2 = (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:0;
+$greenLetter3 = (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:0;
+$greenLetter4 = (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:0;
+$greenLetter5 = (isset($_GET['greenLetter5']))? $_GET['greenLetter5']:0;
+
+
+?>
 <form action="index.php" method="GET">
-    <input type="text" name="yellowLetters">
+    <input type="text" name="yellowLetters" value = "<?if(empty($yellowLetters)){echo"";} else {echo $yellowLetters;} ?>">
 
-    <input type="text" name="grayLetters">
+    <input type="text" name="grayLetters" value = "<?if(empty($grayLetters)){echo"";} else {echo $grayLetters;} ?>">
 
-    <input type="text" name="greenLetter1" class="greenLetters" maxlength="1">
-    <input type="text" name="greenLetter2" class="greenLetters" maxlength="1">
-    <input type="text" name="greenLetter3" class="greenLetters" maxlength="1">
-    <input type="text" name="greenLetter4" class="greenLetters" maxlength="1">
-    <input type="text" name="greenLetter5" class="greenLetters" maxlength="1">
+    <input type="text" name="greenLetter1" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter1)){echo"";} else {echo $greenLetter1;} ?>">
+    <input type="text" name="greenLetter2" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter2)){echo"";} else {echo $greenLetter2;}?>">
+    <input type="text" name="greenLetter3" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter3)){echo"";} else {echo $greenLetter3;} ?>">
+    <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter4)){echo"";} else {echo $greenLetter4;} ?>">
+    <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter5)){echo"";} else {echo $greenLetter5;} ?>">
     <input type="submit">
 </form>
 <style>
@@ -33,16 +45,8 @@
         text-align: center;
     }
 </style>
-<?php
-//get letters from the textboxes
-$yellowLetters = (isset($_GET['yellowLetters']))? $_GET['yellowLetters']:0;
-$grayLetters = (isset($_GET['grayLetters']))? $_GET['grayLetters']:0;
-$greenLetter1 = (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:0;
-$greenLetter2 = (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:0;
-$greenLetter3 = (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:0;
-$greenLetter4 = (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:0;
-$greenLetter5 = (isset($_GET['greenLetter5']))? $_GET['greenLetter5']:0;
 
+<?php
 //connect to database
 $host = 'mariadb';
 $user = 'root';
@@ -123,6 +127,7 @@ if(empty($grayLetters)) {
 $sql = 'SELECT DISTINCT word FROM words WHERE word LIKE "_____" AND word NOT LIKE "% %" AND word not like "%-%" ' . $yellowLettersQuery . $grayLettersQuery . $greenLetter1 . $greenLetter2 . $greenLetter3 . $greenLetter4 . $greenLetter5;
 
 //
+
 if ($result = $conn->query($sql)) {
     while ($data = $result->fetch_object()) {
         $words[] = $data;
