@@ -1,26 +1,28 @@
 <?php
 //get letters from the textboxes
+$resetArray = array("","","","","");
 $yellowLetters = (isset($_GET['yellowLetters']))? $_GET['yellowLetters']:0;
 $grayLetters = (isset($_GET['grayLetters']))? $_GET['grayLetters']:0;
-$greenLetter1 = (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:0;
-$greenLetter2 = (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:0;
-$greenLetter3 = (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:0;
-$greenLetter4 = (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:0;
-$greenLetter5 = (isset($_GET['greenLetter5']))? $_GET['greenLetter5']:0;
+$greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:"", 1 => (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:"", 2 => (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:"", 3 => (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:"", 4 =>(isset($_GET['greenLetter5']))? $_GET['greenLetter5']:"");
 
-
+if(isset($_GET['reset'])) {
+    $yellowLetters = "";
+    $grayLetters = "";
+    for($i = 0; $i <5; $i++){
+        $greenLettersArray[$i] = "";
+    }
+}
 ?>
 <form action="index.php" method="GET">
     <input type="text" name="yellowLetters" value = "<?if(empty($yellowLetters)){echo"";} else {echo $yellowLetters;} ?>">
-
     <input type="text" name="grayLetters" value = "<?if(empty($grayLetters)){echo"";} else {echo $grayLetters;} ?>">
-
-    <input type="text" name="greenLetter1" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter1)){echo"";} else {echo $greenLetter1;} ?>">
-    <input type="text" name="greenLetter2" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter2)){echo"";} else {echo $greenLetter2;}?>">
-    <input type="text" name="greenLetter3" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter3)){echo"";} else {echo $greenLetter3;} ?>">
-    <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter4)){echo"";} else {echo $greenLetter4;} ?>">
-    <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter5)){echo"";} else {echo $greenLetter5;} ?>">
+    <input type="text" name="greenLetter1" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[0])){echo"";} else {echo $greenLettersArray[0];} ?>">
+    <input type="text" name="greenLetter2" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[1])){echo"";} else {echo $greenLettersArray[1];} ?>">
+    <input type="text" name="greenLetter3" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[2])){echo"";} else {echo $greenLettersArray[2];} ?>">
+    <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[3])){echo"";} else {echo $greenLettersArray[3];} ?>">
+    <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[4])){echo"";} else {echo $greenLettersArray[4];} ?>">
     <input type="submit">
+    <input type="submit" name="reset" value="Reset" />
 </form>
 <script>
     let body = document.querySelector('body');
@@ -55,6 +57,7 @@ $greenLetter5 = (isset($_GET['greenLetter5']))? $_GET['greenLetter5']:0;
 </style>
 
 <?php
+
 //connect to database
 $host = 'mariadb';
 $user = 'root';
@@ -63,54 +66,21 @@ $mydatabase = 'dictionary';
 $conn = new mysqli($host, $user, $pass, $mydatabase);
 
 
-//build part of the query with green letters
-$greenLettersArray = array($greenLetter1, $greenLetter2, $greenLetter3, $greenLetter4, $greenLetter5);
-$greenLettersQuery = 'AND word LIKE "';
-
+//build query with green letters
+$greenLettersQueryArray = [];
 for($i = 0; $i < 5; $i++) {
-    echo "<br>";
-    echo 'greenletters[' . $i . ']' . $greenLettersArray[$i];
     if(empty($greenLettersArray[$i])) {
-        $greenLettersQuery = $greenLettersQuery . '_';
+        $greenLettersQueryArray[$i] = "_";
+    }
+    else $greenLettersQueryArray[$i] = $greenLettersArray[$i];
+}
 
-    }
-    else {
-        $greenLettersQuery = $greenLettersQuery . $greenLettersArray[$i];
-    }
+$greenLettersQuery = 'AND word LIKE "';
+for($i = 0; $i < 5; $i++) {
+    $greenLettersQuery = $greenLettersQuery . $greenLettersQueryArray[$i];
 }
 $greenLettersQuery = $greenLettersQuery . '"';
-echo "<br>";
-echo $greenLettersQuery;
-if(empty($greenLetter1)) {
-    $greenLetter1 = "";
-}
-else {
-    $greenLetter1 = 'AND word LIKE "' . $greenLetter1 . '____"';
-}
-if(empty($greenLetter2)) {
-    $greenLetter2 = "";
-}
-else {
-    $greenLetter2 = 'AND word LIKE "_' . $greenLetter2 . '___"';
-}
-if(empty($greenLetter3)) {
-    $greenLetter3 = "";
-}
-else {
-    $greenLetter3 = 'AND word LIKE "__' . $greenLetter3 . '__"';
-}
-if(empty($greenLetter4)) {
-    $greenLetter4 = "";
-}
-else {
-    $greenLetter4 = 'AND word LIKE "___' . $greenLetter4 . '_"';
-}
-if(empty($greenLetter5)) {
-    $greenLetter5 = "";
-}
-else {
-    $greenLetter5 = 'AND word LIKE "____' . $greenLetter5 . '"';
-}
+
 
 //save letters from yellow/gray textbox in array
 $yellowLettersArray = str_split($yellowLetters, $length = 1);
@@ -132,19 +102,19 @@ if(empty($grayLetters)) {
 }
 
 //build full query
-$sql = 'SELECT DISTINCT word FROM words WHERE word LIKE "_____" AND word NOT LIKE "% %" AND word not like "%-%" ' . $yellowLettersQuery . $grayLettersQuery . $greenLetter1 . $greenLetter2 . $greenLetter3 . $greenLetter4 . $greenLetter5;
+$sql = 'SELECT DISTINCT word FROM words WHERE word LIKE "_____" AND word NOT LIKE "% %" AND word not like "%-%" ' . $yellowLettersQuery . $grayLettersQuery . $greenLettersQuery;
 
 //
 if ($result = $conn->query($sql)) {
     while ($data = $result->fetch_object()) {
         $words[] = $data;
     }
-    if(empty($words)) {
-        $words[] = "";
+    if(!empty($words)) {
+        foreach ($words as $word) {
+            echo "<br>";
+            echo $word->word;
+        }
     }
-    foreach ($words as $word) {
-        echo "<br>";
-        echo $word->word;
-    }
+    else{echo "Ich kann leider kein Wort finden 🙂";}
 }
 ?>
