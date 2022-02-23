@@ -1,11 +1,11 @@
 <?php
 //get letters from the textboxes
 $resetArray = array("","","","","");
-$yellowLetters = (isset($_GET['yellowLetters']))? $_GET['yellowLetters']:0;
+$yellowLetters = (isset($_GET['yellowLetters']))? $_GET['yellowLetters']:"";
 $grayLetters = (isset($_GET['grayLetters']))? $_GET['grayLetters']:0;
 $greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:"", 1 => (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:"", 2 => (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:"", 3 => (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:"", 4 =>(isset($_GET['greenLetter5']))? $_GET['greenLetter5']:"");
 
-if(isset($_GET['reset'])) {
+if(isset($_POST['reset'])) {
     $yellowLetters = "";
     $grayLetters = "";
     for($i = 0; $i <5; $i++){
@@ -13,17 +13,22 @@ if(isset($_GET['reset'])) {
     }
 }
 ?>
-<form action="index.php" method="GET">
-    <input type="text" name="yellowLetters" value = "<?if(empty($yellowLetters)){echo"";} else {echo $yellowLetters;} ?>">
-    <input type="text" name="grayLetters" value = "<?if(empty($grayLetters)){echo"";} else {echo $grayLetters;} ?>">
-    <input type="text" name="greenLetter1" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[0])){echo"";} else {echo $greenLettersArray[0];} ?>">
-    <input type="text" name="greenLetter2" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[1])){echo"";} else {echo $greenLettersArray[1];} ?>">
-    <input type="text" name="greenLetter3" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[2])){echo"";} else {echo $greenLettersArray[2];} ?>">
-    <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[3])){echo"";} else {echo $greenLettersArray[3];} ?>">
-    <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[4])){echo"";} else {echo $greenLettersArray[4];} ?>">
-    <input type="submit">
-    <input type="submit" name="reset" value="Reset" />
-</form>
+<container>
+    <form action="index.php" method="GET">
+        <input type="text" name="yellowLetters" value = "<?if(empty($yellowLetters)){echo"";} else {echo $yellowLetters;} ?>">
+        <input type="text" name="grayLetters" value = "<?if(empty($grayLetters)){echo"";} else {echo $grayLetters;} ?>">
+        <input type="text" name="greenLetter1" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[0])){echo"";} else {echo $greenLettersArray[0];} ?>">
+        <input type="text" name="greenLetter2" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[1])){echo"";} else {echo $greenLettersArray[1];} ?>">
+        <input type="text" name="greenLetter3" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[2])){echo"";} else {echo $greenLettersArray[2];} ?>">
+        <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[3])){echo"";} else {echo $greenLettersArray[3];} ?>">
+        <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[4])){echo"";} else {echo $greenLettersArray[4];} ?>">
+        <input type="submit">
+    </form>
+    <form action="index.php" method="POST">
+        <input type="submit" name="reset" value="Reset" />
+    </form>
+</container>
+
 <script>
     let body = document.querySelector('body');
     body.addEventListener("keydown", function(event) {
@@ -31,8 +36,13 @@ if(isset($_GET['reset'])) {
             document.querySelector("form").submit();
         }
     });
+
+
 </script>
 <style>
+    form {
+        margin: 3px;
+    }
     input[name="yellowLetters"]{
         background-color: #c9b458;
     }
@@ -53,6 +63,9 @@ if(isset($_GET['reset'])) {
         font-family: "Arial Rounded MT Bold";
         height: 25px;
         text-align: center;
+    }
+    container {
+        display: flex;
     }
 </style>
 
@@ -109,12 +122,14 @@ if ($result = $conn->query($sql)) {
     while ($data = $result->fetch_object()) {
         $words[] = $data;
     }
+
     if(!empty($words)) {
         foreach ($words as $word) {
             echo "<br>";
             echo $word->word;
         }
+    }else {
+        echo "Ich kann leider kein Wort finden 🙂";
     }
-    else{echo "Ich kann leider kein Wort finden 🙂";}
 }
 ?>
