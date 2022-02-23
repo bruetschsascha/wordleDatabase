@@ -22,6 +22,14 @@ $greenLetter5 = (isset($_GET['greenLetter5']))? $_GET['greenLetter5']:0;
     <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLetter5)){echo"";} else {echo $greenLetter5;} ?>">
     <input type="submit">
 </form>
+<script>
+    let body = document.querySelector('body');
+    body.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("form").submit();
+        }
+    });
+</script>
 <style>
     input[name="yellowLetters"]{
         background-color: #c9b458;
@@ -127,10 +135,12 @@ if(empty($grayLetters)) {
 $sql = 'SELECT DISTINCT word FROM words WHERE word LIKE "_____" AND word NOT LIKE "% %" AND word not like "%-%" ' . $yellowLettersQuery . $grayLettersQuery . $greenLetter1 . $greenLetter2 . $greenLetter3 . $greenLetter4 . $greenLetter5;
 
 //
-
 if ($result = $conn->query($sql)) {
     while ($data = $result->fetch_object()) {
         $words[] = $data;
+    }
+    if(empty($words)) {
+        $words[] = "";
     }
     foreach ($words as $word) {
         echo "<br>";
