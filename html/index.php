@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<script src="jquery/jquery-3.6.0.js"></script>
 <?php
 //get letters from the textboxes
 $resetArray = array("","","","","");
@@ -30,18 +32,24 @@ if(isset($_POST['reset'])) {
 </container>
 
 <script>
+    let e = 0;
+
     let body = document.querySelector('body');
     body.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" || event.key == "F5") {
             document.querySelector("form").submit();
         }
+        else console.log(event.key);
+        e++
     });
-
 
 </script>
 <style>
     form {
         margin: 3px;
+        height: 30px;
+        display: flex;
+
     }
     input[name="yellowLetters"]{
         background-color: #c9b458;
@@ -66,6 +74,7 @@ if(isset($_POST['reset'])) {
     }
     container {
         display: flex;
+        align-items: center;
     }
 </style>
 
