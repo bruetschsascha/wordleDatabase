@@ -45,9 +45,6 @@ if(isset($_POST['reset'])) {
 
 </script>
 <style>
-    form {
-        margin: 3px;
-    }
     input[class="yellowLetters"]{
         background-color: #c9b458;
     }
@@ -69,10 +66,6 @@ if(isset($_POST['reset'])) {
         height: 25px;
         text-align: center;
     }
-    container {
-        display: flex;
-    }
-
 </style>
 
 <?php
