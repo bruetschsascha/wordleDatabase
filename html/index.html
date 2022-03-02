@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Wordle</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+<body>
+<container>
+    <form action="index.php" method="GET">
+        <input type="text" name="yellowLetter1" class="yellowLetters" value = "<?if(empty($yellowLettersArray[0])){echo"";} else {echo $yellowLettersArray[0];} ?>">
+        <input type="text" name="yellowLetter2" class="yellowLetters" value = "<?if(empty($yellowLettersArray[1])){echo"";} else {echo $yellowLettersArray[1];} ?>">
+        <input type="text" name="yellowLetter3" class="yellowLetters" value = "<?if(empty($yellowLettersArray[2])){echo"";} else {echo $yellowLettersArray[2];} ?>">
+        <input type="text" name="yellowLetter4" class="yellowLetters" value = "<?if(empty($yellowLettersArray[3])){echo"";} else {echo $yellowLettersArray[3];} ?>">
+        <input type="text" name="yellowLetter5" class="yellowLetters" value = "<?if(empty($yellowLettersArray[4])){echo"";} else {echo $yellowLettersArray[4];} ?>">
+        <input type="text" name="grayLetters" value = "<?if(empty($grayLetters)){echo"";} else {echo $grayLetters;} ?>">
+        <input type="text" name="greenLetter1" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[0])){echo"";} else {echo $greenLettersArray[0];} ?>">
+        <input type="text" name="greenLetter2" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[1])){echo"";} else {echo $greenLettersArray[1];} ?>">
+        <input type="text" name="greenLetter3" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[2])){echo"";} else {echo $greenLettersArray[2];} ?>">
+        <input type="text" name="greenLetter4" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[3])){echo"";} else {echo $greenLettersArray[3];} ?>">
+        <input type="text" name="greenLetter5" class="greenLetters" maxlength="1" value = "<?if(empty($greenLettersArray[4])){echo"";} else {echo $greenLettersArray[4];} ?>">
+        <input type="submit">
+    </form>
+    <form action="index.php" method="POST">
+        <input type="submit" name="reset" value="Reset" />
+    </form>
+</container>
+<script>
+//press Enter to submit
+    let body = document.querySelector('body');
+    body.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            document.querySelector("form").submit();
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+input[class="yellowLetters"]{
+    background-color: #c9b458;
+}
+input[name="grayLetters"]{
+    background-color: #787c7e;
+}
+input:focus-visible {
+    border-color: #fff;
+}
+.greenLetters{
+    background-color: #6aaa64;
+    width: 25px;
+    height: 25px;
+}
+input[type="text"] {
+    border-color: #fff;
+    color: #fff;
+    font-family: "Arial Rounded MT Bold";
+    height: 25px;
+    text-align: center;
+}
