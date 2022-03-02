@@ -19,3 +19,10 @@ input[type="text"] {
     height: 25px;
     text-align: center;
 }
+container {
+    display: flex;
+    align-items: center;
+}
+input[type="submit"] {
+    margin: 5px;
+}
