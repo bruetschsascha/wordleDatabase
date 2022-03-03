@@ -5,7 +5,7 @@ $greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLett
 //build query with green letters
 $greenLettersQueryArray = [];
 for($i = 0; $i < 5; $i++) {
-    if(empty($greenLettersArray[$i])) {
+    if(empty($greenLettersArray[$i]) || $greenLettersArray[$i] == " ") {
         $greenLettersQueryArray[$i] = "_";
     }
     else $greenLettersQueryArray[$i] = $greenLettersArray[$i];

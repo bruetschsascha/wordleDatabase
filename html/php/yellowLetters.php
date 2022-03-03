@@ -23,11 +23,13 @@ $yellowLettersArray2D = [
 //build part of the query with yellow letters
 for($i = 0; $i < count($yellowLettersArray2D); $i++) {
     for($j = 0; $j < count($yellowLettersArray2D[$i]); $j++) {
-        $yellowLettersQuery = $yellowLettersQuery .  'AND word LIKE "%' . $yellowLettersArray2D[$i][$j] . '%" ';
-        if($i == 0){$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "' . $yellowLettersArray2D[$i][$j] . '____" ';}
-        if($i == 1){$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "_' . $yellowLettersArray2D[$i][$j] . '___" ';}
-        if($i == 2){$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "__' . $yellowLettersArray2D[$i][$j] . '__" ';}
-        if($i == 3){$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "___' . $yellowLettersArray2D[$i][$j] . '_" ';}
-        if($i == 4){$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "____' . $yellowLettersArray2D[$i][$j] . '" ';}
+        if($yellowLettersArray2D[$i][$j] != " ") {
+            $yellowLettersQuery = $yellowLettersQuery .  'AND word LIKE "%' . $yellowLettersArray2D[$i][$j] . '%" ';
+            if ($i == 0) {$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "' . $yellowLettersArray2D[$i][$j] . '____" ';}
+            if ($i == 1) {$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "_' . $yellowLettersArray2D[$i][$j] . '___" ';}
+            if ($i == 2) {$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "__' . $yellowLettersArray2D[$i][$j] . '__" ';}
+            if ($i == 3) {$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "___' . $yellowLettersArray2D[$i][$j] . '_" ';}
+            if ($i == 4) {$yellowLettersQuery = $yellowLettersQuery . 'AND word NOT LIKE "____' . $yellowLettersArray2D[$i][$j] . '" ';}
+        }
     }
 }
