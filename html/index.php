@@ -2,8 +2,12 @@
 //get letters from the textboxes
 $resetArray = array("","","","","");
 
-include "./php/greenLetters.php";
+$yellowLettersArray = array(0 => (isset($_GET['yellowLetter1']))? $_GET['yellowLetter1']:"", 1 => (isset($_GET['yellowLetter2']))? $_GET['yellowLetter2']:"", 2 => (isset($_GET['yellowLetter3']))? $_GET['yellowLetter3']:"", 3 => (isset($_GET['yellowLetter4']))? $_GET['yellowLetter4']:"", 4 =>(isset($_GET['yellowLetter5']))? $_GET['yellowLetter5']:"");
+$greenLettersArray = array(0 => (isset($_GET['greenLetter1']))? $_GET['greenLetter1']:"", 1 => (isset($_GET['greenLetter2']))? $_GET['greenLetter2']:"", 2 => (isset($_GET['greenLetter3']))? $_GET['greenLetter3']:"", 3 => (isset($_GET['greenLetter4']))? $_GET['greenLetter4']:"", 4 =>(isset($_GET['greenLetter5']))? $_GET['greenLetter5']:"");
+$grayLetters = (isset($_GET['grayLetters']))? $_GET['grayLetters']:0;
+
 include "./php/grayLetters.php";
+include "./php/greenLetters.php";
 include "./php/yellowLetters.php";
 include "index.html";
 
